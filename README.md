@@ -1,14 +1,14 @@
-![status](https://secure.travis-ci.org/wearefractal/APPNAME.png?branch=master)
+![status](https://secure.travis-ci.org/wearefractal/BetterRegExp.png?branch=master)
 
 ## Information
 
 <table>
 <tr> 
-<td>Package</td><td>APPNAME</td>
+<td>Package</td><td>BetterRegExp</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>NOTHING HERE YET</td>
+<td>Utility wrapper over RegExp</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -18,13 +18,40 @@
 
 ## Usage
 
+### Constructor
+
 ```coffee-script
-NOTHING HERE YET
+BetterRegExp = require "BetterRegExp"
+
+# Create from RegExp
+new BetterRegExp /^\s*\d+\s*$/gi
+new BetterRegExp /^\s*\d+\s*$/
+new BetterRegExp /^\s*\d+\s*$/, "gi"
+
+# Create from String
+new BetterRegExp "^\s*\d+\s*$", "gi"
+new BetterRegExp "^\s*\d+\s*$""
 ```
 
-## Examples
+### Flags
 
-You can view more examples in the [example folder.](https://github.com/wearefractal/APPNAME/tree/master/examples)
+```coffee-script
+pat = new BetterRegExp /^\s*\d+\s*$/g
+
+pat.addFlag('i') # Adding flags
+pat.removeFlag('g') # Removing flags
+pat.flags() === 'i' # List flags
+pat.addFlag('gm').removeFlag('i') # Chaining
+
+# There are aliases to help make chaining easier
+pat.global() = pat.g() = pat.addFlag('g')
+pat.ignoreCase() = pat.i() = pat.addFlag('i')
+pat.multiline() = pat.m() = pat.addFlag('m')
+pat.sticky() = pat.y() = pat.addFlag('y')
+pat.extended() = pat.x() = pat.addFlag('x')
+pat.g().i() = pat.addFlag('gi')
+pat.i().m().x() = pat.addFlag('imx')
+```
 
 ## LICENSE
 
