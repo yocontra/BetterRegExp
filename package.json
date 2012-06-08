@@ -1,7 +1,7 @@
 {
    "name":"BetterRegExp",
    "description":"Utility wrapper over RegExp",
-   "version":"0.0.1",
+   "version":"0.0.2",
    "homepage":"http://github.com/wearefractal/BetterRegExp",
    "repository":"git://github.com/wearefractal/BetterRegExp.git",
    "author":"Fractal <contact@wearefractal.com> (http://wearefractal.com/)",

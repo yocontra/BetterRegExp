@@ -1,40 +1,29 @@
-{uppercase, getFlags, cleanFlag, flags} = util = require './util'
+util = require './util'
 
-class BetterRegExp
-  flags: null
-  constructor: (pattern, flag) -> @setRegExp pattern, flag
-  clone: (flag) -> new BetterRegExp @
+BetterRegExp = (pattern, flag="") ->
+  if pattern instanceof RegExp
+    flag += util.getFlags pattern
+    pattern = pattern.source
+  throw "Pattern must be a string or RegExp" unless typeof pattern is "string"
+  regex = new RegExp pattern, util.cleanFlag flag
+  regex[k] = v for own k,v of BetterRegExp::
+  return regex
 
-  # Pass-through to regex
-  setRegExp: (pattern, flag="") ->
-    flag = cleanFlag flag
-    if pattern instanceof RegExp
-      flag += getFlags pattern
-      pattern = pattern.source
-    else if pattern instanceof BetterRegExp
-      flag += pattern.flags
-      pattern = pattern.regex.source
-    pattern ?= @regex.source if @regex?
-    throw "Pattern must be string or RegExp" unless typeof pattern is "string"
-    @regex = new RegExp pattern, flag
-    @flags = getFlags @regex
-    return @
+BetterRegExp::clone = -> BetterRegExp @
+BetterRegExp::flags = -> util.getFlags @
+BetterRegExp::addFlag = (flag) -> @setFlag @flags()+flag
+BetterRegExp::setFlag = (flag) -> 
+  @compile @source, flag
+  return @
+BetterRegExp::removeFlag = (flag) -> @setFlag (m for m in @flags() when !(m in flag))
+BetterRegExp::hasFlag = (flag) -> (m for m in @flags() when !(m in flag)).length isnt -1
 
-  toString: -> @regex.toString()
-  exec: (args...) -> @regex.exec args...
-  test: (args...) -> @regex.test args...
-
-  # Sugar
-  addFlag: (flag) -> @setFlag @flags+flag
-  setFlag: (flag) -> @setRegExp null, flag
-  removeFlag: (flag) -> @setFlag (m for m in @flags when !(m in flag))
-  hasFlag: (flag) -> (m for m in @flags when !(m in flag)).length isnt -1
-
-for flag, name of flags
+for flag, name of util.flags
   do (flag) ->
-    BetterRegExp::["is#{uppercase(name)}"] = -> @hasFlag flag
-    BetterRegExp::[name] = BetterRegExp::[flag] = -> @addFlag flag
+    BetterRegExp::["is#{util.uppercase(name)}"] = -> @hasFlag flag
+    BetterRegExp::[flag] = -> @addFlag flag
 
 BetterRegExp.escape = util.escape
 BetterRegExp.util = util
+
 module.exports = BetterRegExp

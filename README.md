@@ -24,19 +24,19 @@
 BetterRegExp = require "BetterRegExp"
 
 # Create from RegExp
-new BetterRegExp /^\s*\d+\s*$/gi
-new BetterRegExp /^\s*\d+\s*$/
-new BetterRegExp /^\s*\d+\s*$/, "gi"
+pat = BetterRegExp /^\s*\d+\s*$/gi
+pat = BetterRegExp /^\s*\d+\s*$/
+pat = BetterRegExp /^\s*\d+\s*$/, "gi"
 
 # Create from String
-new BetterRegExp "^\s*\d+\s*$", "gi"
-new BetterRegExp "^\s*\d+\s*$""
+pat = BetterRegExp "^\s*\d+\s*$", "gi"
+pat = BetterRegExp "^\s*\d+\s*$""
 ```
 
 ### Flags
 
 ```coffee-script
-pat = new BetterRegExp /^\s*\d+\s*$/g
+pat = BetterRegExp /^\s*\d+\s*$/g
 
 pat.addFlag('i') # Adding flags
 pat.removeFlag('g') # Removing flags
@@ -44,11 +44,11 @@ pat.flags === 'i' # List flags
 pat.addFlag('gm').removeFlag('i') # Chaining
 
 # There are aliases to help make chaining easier
-pat.global() = pat.g() = pat.addFlag('g')
-pat.ignoreCase() = pat.i() = pat.addFlag('i')
-pat.multiline() = pat.m() = pat.addFlag('m')
-pat.sticky() = pat.y() = pat.addFlag('y')
-pat.extended() = pat.x() = pat.addFlag('x')
+pat.g() = pat.addFlag('g')
+pat.i() = pat.addFlag('i')
+pat.m() = pat.addFlag('m')
+pat.y() = pat.addFlag('y')
+pat.x() = pat.addFlag('x')
 pat.g().i() = pat.addFlag('gi')
 pat.i().m().x() = pat.addFlag('imx')
 ```
@@ -58,7 +58,7 @@ pat.i().m().x() = pat.addFlag('imx')
 ```coffee-script
 # Escaping
 exp = BetterRegExp.escape "test"
-pat = new BetterRegExp exp, "g"
+pat = BetterRegExp exp, "g"
 
 # Executing is the same
 pat.exec "test"
