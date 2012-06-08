@@ -1,4 +1,4 @@
-{uppercase, getFlags, validateFlag, flags} = util = require './util'
+{uppercase, getFlags, cleanFlag, flags} = util = require './util'
 
 class BetterRegExp
   flags: null
@@ -7,7 +7,7 @@ class BetterRegExp
 
   # Pass-through to regex
   setRegExp: (pattern, flag="") ->
-    validateFlag flag
+    flag = cleanFlag flag
     if pattern instanceof RegExp
       flag += getFlags pattern
       pattern = pattern.source
