@@ -40,7 +40,7 @@ pat = new BetterRegExp /^\s*\d+\s*$/g
 
 pat.addFlag('i') # Adding flags
 pat.removeFlag('g') # Removing flags
-pat.flags() === 'i' # List flags
+pat.flags === 'i' # List flags
 pat.addFlag('gm').removeFlag('i') # Chaining
 
 # There are aliases to help make chaining easier
@@ -52,6 +52,21 @@ pat.extended() = pat.x() = pat.addFlag('x')
 pat.g().i() = pat.addFlag('gi')
 pat.i().m().x() = pat.addFlag('imx')
 ```
+
+### Misc.
+
+```coffee-script
+# Escaping
+exp = BetterRegExp.escape "test"
+pat = new BetterRegExp exp, "g"
+
+# Executing is the same
+pat.exec "test"
+
+# Testing is the same
+pat.match "test"
+```
+
 
 ## LICENSE
 

@@ -27,39 +27,39 @@ describe 'constructor()', ->
 describe 'clone()', ->
   it 'should clone', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/
-    pat.clone().flags().should.eql ''
+    pat.clone().flags.should.eql ''
     done()
   it 'should clone with flags', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/g
-    pat.clone().flags().should.eql 'g'
+    pat.clone().flags.should.eql 'g'
     done()
 
-describe 'flags()', ->
+describe 'flags', ->
   it 'should work with one', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/g
-    pat.flags().should.eql 'g'
+    pat.flags.should.eql 'g'
     done()
   it 'should work with multiple', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/gi
-    pat.flags().should.eql 'gi'
+    pat.flags.should.eql 'gi'
     done()
 
 describe 'setFlag()', ->
   it 'should work with one', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/g
-    pat.flags().should.equal 'g'
+    pat.flags.should.equal 'g'
     pat.isGlobal().should.equal true
     pat.setFlag 'i'
-    pat.flags().should.equal 'i'
+    pat.flags.should.equal 'i'
     pat.isIgnoreCase().should.equal true
     done()
   it 'should work with multiple', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/g
-    pat.flags().should.equal 'g'
+    pat.flags.should.equal 'g'
     pat.isGlobal().should.equal true
     pat.hasFlag('g').should.equal true
     pat.setFlag 'im'
-    pat.flags().should.equal 'im'
+    pat.flags.should.equal 'im'
     pat.isIgnoreCase().should.equal true
     pat.isMultiline().should.equal true
     done()
@@ -68,14 +68,14 @@ describe 'addFlag()', ->
   it 'should work with one', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/
     pat.addFlag('g')
-    pat.flags().should.equal 'g'
+    pat.flags.should.equal 'g'
     done()
   it 'should work with multiple', (done) ->
     pat = new BetterRegExp /^\s*\d+\s*$/g
-    pat.flags().should.equal 'g'
+    pat.flags.should.equal 'g'
     pat.isGlobal().should.equal true
     pat.addFlag('im')
-    pat.flags().should.equal 'gim'
+    pat.flags.should.equal 'gim'
     done()
 
 describe 'isX()', ->
