@@ -9,7 +9,7 @@ BetterRegExp = (pattern, flag="") ->
   regex[k] = v for own k,v of BetterRegExp::
   return regex
 
-BetterRegExp::clone = -> BetterRegExp @
+BetterRegExp::clone = (flags=@flags()) -> BetterRegExp @source, flags
 BetterRegExp::flags = -> util.getFlags @
 BetterRegExp::addFlag = (flag) -> @setFlag @flags()+flag
 BetterRegExp::setFlag = (flag) -> 
