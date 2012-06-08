@@ -3,6 +3,14 @@ should = require 'should'
 require 'mocha'
 
 # These samples are from http://www.javascriptkit.com/javatutors/redev3.shtml
+describe 'instanceof', ->
+  it 'should be the same', (done) ->
+    exp = /sample/
+    pat = new BetterRegExp exp
+    (exp instanceof RegExp).should.equal true
+    (pat instanceof RegExp).should.equal true
+    done()
+
 describe 'test()', ->
   it 'should return identical results', (done) ->
     exp = /sample/
